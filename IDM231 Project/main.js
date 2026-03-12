@@ -36,20 +36,29 @@ const signsData = [
   { name: 'Pisces', image: 'wonkacookie.png', sound: 'ukulele.mp3', color: '#8e44ad', desc: 'Dreamy and creative, you are full of imagination like a Wonka cookie.' }
 ];
 
+
+let currentAudio = null;
+
 function updatePage(sign) {
   if (!sign) return;
 
   document.body.style.backgroundColor = sign.color;
 
   const infoDisplay = document.getElementById('zodiacstuff');
-  // Updated to include the description below the title
   infoDisplay.innerHTML = `
     <h2>You are a ${sign.name}!</h2>
     <p>${sign.desc}</p>
   `;
 
-  const audio = new Audio(`sounds/${sign.sound}`);
-  audio.play().catch(err => console.log("Click the page first to enable audio."));
+ 
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0; 
+  }
+
+  
+  currentAudio = new Audio(`sounds/${sign.sound}`);
+  currentAudio.play().catch(err => console.log("User interaction required for audio."));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -69,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   cookieImages.forEach(img => {
     img.addEventListener('click', function() {
-      // decodeURIComponent ensures filenames with spaces work correctly
       const filename = decodeURIComponent(this.src.split('/').pop());
       const sign = signsData.find(item => item.image === filename);
       

@@ -93,3 +93,13 @@ body {
     height: 150px;
     object-fit: cover;
 }
+
+
+.helpbutton {
+    margin-top: 30px;
+    padding: 12px 25px;
+    background-color: #ff8fa3;
+    color: white;
+    text-align: center;
+    text-decoration: bold;
+}
