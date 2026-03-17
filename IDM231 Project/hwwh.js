@@ -22,22 +22,19 @@ function getZodiac(month, day) {
 }
 
 const signsData = [
-  { name: 'Aries', image: 'blueberry.png', sound: 'bubblepop.mp3', color: '#e74c3c', desc: 'Bold and energetic, just like a burst of fresh blueberry.' },
+  { name: 'Aries', image: 'blueberry.png', sound: 'bubblepop.mp3', color: '#6d3ce7', desc: 'Bold and energetic, just like a burst of fresh blueberry.' },
   { name: 'Taurus', image: 'browniebatter.png', sound: 'comedicdrum.mp3', color: '#795548', desc: 'Reliable and indulgent, you are as rich as brownie batter.' },
-  { name: 'Gemini', image: 'celebrationcookie.png', sound: 'familystore.mp3', color: '#f1c40f', desc: 'Fun-loving and social, you bring the party like a celebration cookie.' },
-  { name: 'Cancer', image: 'milkchocolate.png', sound: 'gameover.mp3', color: '#95a5a6', desc: 'Sweet and comforting, a classic soul like milk chocolate.' },
-  { name: 'Leo', image: 'oreocheesecake.png', sound: 'gladpiano.mp3', color: '#e67e22', desc: 'Confident and show-stopping, you are the fan-favorite Oreo Cheesecake.' },
-  { name: 'Virgo', image: 'oreocookie.png', sound: 'happy.mp3', color: '#2ecc71', desc: 'Precise and timeless, a perfect balance just like an Oreo.' },
-  { name: 'Libra', image: 'oreosandwich.png', sound: 'levelup.mp3', color: '#9b59b6', desc: 'Soft and kind, you are well-balanced like a fudge sandwich cookie.' },
-  { name: 'Scorpio', image: 'smoresbrownie.png', sound: 'organ.mp3', color: '#34495e', desc: 'Intense and complex, with layers like a toasted s’mores brownie.' },
+  { name: 'Gemini', image: 'celebrationcookie.png', sound: 'familystore.mp3', color: '#ffa6d7', desc: 'Fun-loving and social, you bring the party like a celebration cookie.' },
+  { name: 'Cancer', image: 'milkchocolate.png', sound: 'gameover.mp3', color: '#9871e2', desc: 'Sweet and comforting, a classic soul like milk chocolate.' },
+  { name: 'Leo', image: 'oreocheesecake.png', sound: 'gladpiano.mp3', color: '#81c7ea', desc: 'Confident and show-stopping, you are the fan-favorite Oreo Cheesecake.' },
+  { name: 'Virgo', image: 'oreocookie.png', sound: 'happy.mp3', color: '#cc7d2e', desc: 'Precise and timeless, a perfect balance just like an Oreo.' },
+  { name: 'Libra', image: 'oreosandwich.png', sound: 'levelup.mp3', color: '#f1a82b', desc: 'Soft and kind, you are well-balanced like a fudge sandwich cookie.' },
+  { name: 'Scorpio', image: 'smoresbrownie.png', sound: 'organ.mp3', color: '#e4d45b', desc: 'Intense and complex, with layers like a toasted s’mores brownie.' },
   { name: 'Sagittarius', image: 'snookerdoodle.png', sound: 'pipe.mp3', color: '#d35400', desc: 'Adventurous and spicy, you add zest to life like a snickerdoodle.' },
   { name: 'Capricorn', image: 'sugarcookie.png', sound: 'popwow.mp3', color: '#16a085', desc: 'Hardworking and traditional, a polished classic like a sugar cookie.' },
-  { name: 'Aquarius', image: 'weddingcake.png', sound: 'trombone.mp3', color: '#2980b9', desc: 'Unique and visionary, as special as a slice of wedding cake.' },
-  { name: 'Pisces', image: 'wonkacookie.png', sound: 'ukulele.mp3', color: '#8e44ad', desc: 'Dreamy and creative, you are full of imagination like a Wonka cookie.' }
+  { name: 'Aquarius', image: 'weddingcake.png', sound: 'trombone.mp3', color: '#d64cb1', desc: 'Unique and visionary, as special as a slice of wedding cake.' },
+  { name: 'Pisces', image: 'wonkacookie.png', sound: 'ukulele.mp3', color: '#c94d4d', desc: 'Dreamy and creative, you are full of imagination like a Wonka cookie.' }
 ];
-
-
-let currentAudio = null;
 
 function updatePage(sign) {
   if (!sign) return;
@@ -45,20 +42,14 @@ function updatePage(sign) {
   document.body.style.backgroundColor = sign.color;
 
   const infoDisplay = document.getElementById('zodiacstuff');
+  
   infoDisplay.innerHTML = `
     <h2>You are a ${sign.name}!</h2>
     <p>${sign.desc}</p>
   `;
 
-  
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-  }
-
-
-  currentAudio = new Audio(`sounds/${sign.sound}`);
-  currentAudio.play().catch(err => console.log("User interaction required for audio."));
+  const audio = new Audio(`sounds/${sign.sound}`);
+  audio.play().catch(err => console.log("Click the page first to enable audio."));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -78,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   cookieImages.forEach(img => {
     img.addEventListener('click', function() {
+      
       const filename = decodeURIComponent(this.src.split('/').pop());
       const sign = signsData.find(item => item.image === filename);
       
